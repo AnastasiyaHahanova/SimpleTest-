@@ -1,0 +1,1 @@
+CREATE DATABASE "text_magic";
