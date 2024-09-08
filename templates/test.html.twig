@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{#    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}#}
+{#    {{ form_widget(form) }}#}
+{#    {{ form_end(form) }}#}
+    <div><h1>Test</h1></div>
+    <div class="edit-block white">
+        <div class="form">
+            {{ form_start(form, {'attr': {'target': 'my-iframe','accept-charset': "utf-8", 'autocomplete': "off", 'novalidate':'true'}}) }}
+            {% for question in questions %}
+            <div class="row">
+                <div class="part-2">{{ form_label(form.section) }}</div>
+                <div class="part-8">{{ form_widget(form.section, {'attr' : {'class': 'input'}}) }}</div>
+            </div>
+            {% endfor %}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

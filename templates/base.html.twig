@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}HMS{% endblock %}</title>
+    <style>
+		::selection {
+			background: #f1f2f3;
+			color: #fff;
+		}
+    </style>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('styles') }}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div>
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>
