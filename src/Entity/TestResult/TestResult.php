@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\TestResult;
 
 use App\Repository\TestResultRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,8 +21,11 @@ class TestResult
     #[ORM\Column]
     private array $failedQuestions = [];
 
-    #[ORM\Column(length: 255)]
-    private ?string $result = null;
+	#[ORM\Column]
+	private array $allAnswers = [];
+
+    #[ORM\Column(length: 255, options: ['default' => ''])]
+    private string $result = '';
 
     public function getId(): ?int
     {
@@ -64,4 +67,16 @@ class TestResult
 
         return $this;
     }
+
+	public function getAllAnswers(): array
+	{
+		return $this->allAnswers;
+	}
+
+	public function setAllAnswers(array $answers): static
+	{
+		$this->allAnswers = $answers;
+
+		return $this;
+	}
 }

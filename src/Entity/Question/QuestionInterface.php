@@ -23,4 +23,6 @@ interface QuestionInterface
 	public function getHash(): string;
 
 	public function setHash(string $hash): static;
+
+	public function getAllAnswersByType(): array;
 }

@@ -36,7 +36,7 @@ class TestForm extends AbstractType
 		$answers = [];
 		foreach ($question->getCorrectAnswers() as $index => $answer)
 		{
-			$key = sprintf('correct__%s', $index);
+			$key = sprintf('correct_%s', $index);
 			$answers[$key] = $answer;
 		}
 

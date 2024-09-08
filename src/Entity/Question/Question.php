@@ -79,4 +79,12 @@ class Question implements QuestionInterface
 
 		return $this;
 	}
+
+	public function getAllAnswersByType(): array
+	{
+		return [
+			'wrong' => $this->getWrongAnswers(),
+			'correct' => $this->getCorrectAnswers()
+		];
+	}
 }

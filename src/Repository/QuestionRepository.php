@@ -24,7 +24,7 @@ class QuestionRepository extends ServiceEntityRepository
 	 * @param int $offset
 	 * @return QuestionInterface[]
 	 */
-	public function findAllByLimitAndOffset(int $limit = 10, int $offset = 0): array
+	public function findByLimitAndOffset(int $limit = 10, int $offset = 0): array
 	{
 		return $this->findBy([], null, $limit, $offset);
 	}
