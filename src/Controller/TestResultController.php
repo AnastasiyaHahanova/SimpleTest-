@@ -22,16 +22,25 @@ class TestResultController extends AbstractController
 	{
 		$questions = $this->questionRepository->findAllByLimitAndOffset();
 		shuffle($questions);
-		$form = $this->createForm(TestForm::class,null, ['questions' => $questions]);
+		$form = $this->createForm(TestForm::class, null, ['questions' => $questions]);
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid())
 		{
+			$passedQuestionIds = [];
+			$failedQuestionIds = [];
+			foreach ($form->getData() as $question => $answers)
+			{
+				$questionId = (int)str_replace('question_', '', $question);
+
+			}
+			dd($form->getData());
 			return $this->redirectToRoute('task_success');
 		}
 
 		return $this->render('test.html.twig', [
 			'form' => $form,
-			'questions' => $questions
+			'questions' => $questions,
+			'test_number' => 1
 		]);
 	}
 

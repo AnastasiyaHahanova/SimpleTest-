@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\Question;
-use App\Entity\QuestionInterface;
+use App\Factory\Question\QuestionFactoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -23,7 +22,10 @@ class LoadQuestionsFromCsvCommand extends Command
 {
 	public const FILE_EXTENSION = 'csv';
 
-	public function __construct(private readonly EntityManagerInterface $entityManager)
+	public function __construct(
+		private readonly EntityManagerInterface $entityManager,
+		private readonly QuestionFactoryInterface $factory
+	)
 	{
 		parent::__construct();
 	}
@@ -63,7 +65,7 @@ class LoadQuestionsFromCsvCommand extends Command
 
 			while (($data = fgetcsv($handle, 1000, $questionFieldsSeparator)) !== false)
 			{
-				$question = $this->createQuestion($data[0], explode($questionAnswersSeparator, $data[1]), explode($questionAnswersSeparator, $data[2]));
+				$question = $this->factory->create($data[0], explode($questionAnswersSeparator, $data[1]), explode($questionAnswersSeparator, $data[2]));
 				$this->entityManager->persist($question);
 				$count++;
 				if ($count % $chunkSize === 0)
@@ -105,19 +107,5 @@ class LoadQuestionsFromCsvCommand extends Command
 		}
 
 		return true;
-	}
-
-	/**
-	 * @param string $content
-	 * @param string[] $correctAnswers
-	 * @param string[] $wrongAnswers
-	 * @return QuestionInterface
-	 */
-	private function createQuestion(string $content, array $correctAnswers, array $wrongAnswers): QuestionInterface
-	{
-		return (new Question())
-			->setContent($content)
-			->setCorrectAnswers($correctAnswers)
-			->setWrongAnswers($wrongAnswers);
 	}
 }

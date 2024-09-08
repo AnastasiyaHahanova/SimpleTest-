@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Question;
-use App\Entity\QuestionInterface;
+use App\Entity\Question\Question;
+use App\Entity\Question\QuestionInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -28,5 +28,4 @@ class QuestionRepository extends ServiceEntityRepository
 	{
 		return $this->findBy([], null, $limit, $offset);
 	}
-
 }

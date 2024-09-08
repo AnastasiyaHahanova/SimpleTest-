@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Entity\QuestionInterface;
+use App\Entity\Question\QuestionInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,12 +17,16 @@ class TestForm extends AbstractType
 		 */
 		foreach ($options['questions'] as $question)
 		{
-			$builder->add('question_' . $question->getId(),
+			$builder->add($question->getHash(),
 				TestSubForm::class,
 				[
 					'answers' => $this->getShuffledAnswers($question)
 				]
 			);
+
+			$builder->add('submit', SubmitType::class, [
+			'label' => 'Save results'
+		]);
 
 		}
 	}
@@ -31,13 +36,13 @@ class TestForm extends AbstractType
 		$answers = [];
 		foreach ($question->getCorrectAnswers() as $index => $answer)
 		{
-			$key = sprintf('correct_answer_%s', $index);
+			$key = sprintf('correct__%s', $index);
 			$answers[$key] = $answer;
 		}
 
 		foreach ($question->getWrongAnswers() as $index => $answer)
 		{
-			$key = sprintf('wrong_answer_%s', $index);
+			$key = sprintf('wrong_%s', $index);
 			$answers[$key] = $answer;
 		}
 

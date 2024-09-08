@@ -19,6 +19,7 @@
         "symfony/runtime": "7.1.*",
         "symfony/twig-bridge": "7.1.*",
         "symfony/twig-bundle": "7.1.*",
+        "symfony/uid": "7.1.*",
         "symfony/yaml": "7.1.*"
     },
     "config": {

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Entity\QuestionInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;

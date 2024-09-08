@@ -1,21 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div><h1>Test</h1></div>
+    <div><h1>Test {{ test_number }}</h1></div>
     <div class="test-block">
-        <div class="form">
-            {{ form_start(form, {'attr': {'target': 'my-iframe','accept-charset': "utf-8", 'autocomplete': "off", 'novalidate':'true'}}) }}
-            {% for question in questions %}
-                <h3>{{ question.content }}</h3>
-                <ul class="flex-inner">
-                {% for answer in  form['question_'~question.id] %}
+        {{ form_start(form, {'attr': {'target': 'my-iframe','accept-charset': "utf-8", 'autocomplete': "off", 'novalidate':'true'}}) }}
+        {% for question in questions %}
+            <h3>{{ question.content }}</h3>
+            <ul class="flex-inner">
+                {% for answer in  form[question.hash] %}
                     <li>
                         {{ form_widget(answer, {'attr' : {'class': 'input'}}) }}
                         {{ form_label(answer) }}
                     </li>
                 {% endfor %}
-                </ul>
-            {% endfor %}
-            {{ form_end(form) }}
+            </ul>
+            <hr>
+        {% endfor %}
+        <div>
+            {{ form_widget(form.submit, {'attr' : {'class': 'btn', 'type': 'button'}}) }}
         </div>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
