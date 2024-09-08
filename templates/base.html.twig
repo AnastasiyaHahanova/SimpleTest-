@@ -2,12 +2,37 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}HMS{% endblock %}</title>
+    <title>{% block title %}Text Magic Test{% endblock %}</title>
     <style>
 		::selection {
 			background: #f1f2f3;
 			color: #fff;
 		}
+		.flex-inner {
+			display: flex;
+			flex-wrap: wrap;
+			list-style: none;
+		}
+
+		.flex-inner li {
+			margin-top: 10px;
+		}
+
+		.flex-inner {
+			flex-direction: column;
+		}
+
+		.flex-inner > li > label {
+			margin-left: 10px;
+		}
+
+		.flex-inner>li>input {
+			cursor: pointer;
+		}
+        .test-block{
+	        position: absolute;
+	        left: 70px;
+        }
     </style>
     {% block stylesheets %}
         {{ encore_entry_link_tags('styles') }}
