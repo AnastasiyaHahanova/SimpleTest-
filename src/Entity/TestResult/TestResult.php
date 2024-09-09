@@ -8,7 +8,7 @@ use App\Repository\TestResultRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TestResultRepository::class)]
-class TestResult
+class TestResult implements TestResultInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
