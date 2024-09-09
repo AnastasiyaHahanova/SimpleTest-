@@ -25,7 +25,7 @@ class CheckTestService implements CheckTestServiceInterface
 			$userAnswers = $data[$question->getHash()];
 			$isPassedQuestion = $this->checkQuestion($question, $userAnswers, $allAnswers);
 
-			$status = $isPassedQuestion ? 'passed': 'failed';
+			$status = $isPassedQuestion ? 'passed' : 'failed';
 			$isPassedQuestion ? $passedQuestionIds[] = $question->getId() : $failedQuestionIds[] = $question->getId();
 
 			$allAnswers[$question->getHash()]['question'] = $question->getContent();
@@ -48,6 +48,8 @@ class CheckTestService implements CheckTestServiceInterface
 
 		if (empty(array_filter($userAnswers)))
 		{
+			$allAnswers[$question->getHash()]['user_answers'] = [];
+
 			return false;
 		}
 
