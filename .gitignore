@@ -12,11 +12,7 @@ auth.json
 .env
 .fleet
 .env.*
-!.env.stage
-!.env.debug
-.phpunit.result.cache
-
-docker-compose.override.yml
+!.env.dist
 
 # Log files
 *.log
