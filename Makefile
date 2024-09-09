@@ -31,6 +31,7 @@ upload-csv:
 	$(DOCKER_COMPOSE_COMMAND) $(CONSOLE) load:questions:from:csv /app/resource/questions.csv
 
 depends:
+	make composer-install
 	make migrations-up
 	make upload-csv
 
