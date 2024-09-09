@@ -84,7 +84,6 @@ class TestController extends AbstractController
 		return $this->render('test.html.twig', [
 			'form' => $form,
 			'questions' => $questions,
-			'test_number' => 1
 		]);
 	}
 
