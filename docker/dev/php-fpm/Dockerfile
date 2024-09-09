@@ -17,6 +17,8 @@ RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
 && pecl install redis \
 && docker-php-ext-enable redis.so
 
+RUN addgroup -g 1000 test-group && adduser -G test-group -u 1000 -h /app -s /usr/bin/bash -h /app test-user -D
+
 WORKDIR /data
 
 VOLUME /data

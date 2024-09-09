@@ -1,0 +1,60 @@
+version: "3"
+services:
+  postgresql:
+    image: postgres:13.5-alpine
+    container_name: postgresql
+    hostname: postgresql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - dev_environment
+    volumes:
+      - ./docker/dev/postgresql.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data/dev/postgresql:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: postgres -c stats_temp_directory=/tmp
+  php8:
+    build:
+      context: docker/dev/php-fpm
+      dockerfile: Dockerfile
+    container_name: php_8_2
+    hostname: ${HOSTNAME:-php}
+    ports:
+      - 9000:9000
+      - 9005:9005
+    environment:
+      - PHP_ENABLE_XDEBUG=0
+      - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
+    volumes:
+      - .:/app
+    working_dir: /app
+    networks:
+      - dev_environment
+    depends_on:
+      - postgresql
+  nginx:
+    image: nginx:1.21.3-alpine
+    container_name: nginx
+    hostname: nginx
+    volumes:
+      - .:/app
+      - ./docker/dev/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/dev/nginx/php-fpm:/etc/nginx/php-fpm
+    depends_on:
+      - php8
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - dev_environment
+networks:
+  dev_environment:
+    name: dev_network
