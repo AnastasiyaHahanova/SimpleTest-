@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div><h1>Test</h1></div>
+    <div class="test-block">
+        {% for question in result.allAnswers %}
+            {% if question.status is same as('passed') %}
+                <h3>{{ question.question }}</h3>
+                <h3>Status:  <span style="color: green">{{ question.status|upper }}</span></h3>
+                <h4>Correct answers</h4>
+                <ul class="flex-inner">
+                    {% for answer in  question.correct_answers %}
+                        <li>
+                           {{ answer }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h4>Your answers</h4>
+                <ul class="flex-inner">
+                    {% for answer in  question.user_answers %}
+                        <li>
+                            {{ answer }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+            {% endif %}
+        {% endfor %}
+        {% for question in result.allAnswers %}
+            {% if question.status is same as('failed') %}
+                <h3>{{ question.question }}</h3>
+                <h3>Status: <span style="color: red">{{ question.status|upper }}</span></h3>
+                <h4>Correct answers</h4>
+                <ul class="flex-inner">
+                    {% for answer in  question.correct_answers %}
+                        <li>
+                            {{ answer }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h4>Your answers</h4>
+                <ul class="flex-inner">
+                    {% for answer in  question.user_answers %}
+                        <li>
+                            {{ answer }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+            {% endif %}
+        {% endfor %}
+        <div>
+        </div>
+    </div>
+{% endblock %}
