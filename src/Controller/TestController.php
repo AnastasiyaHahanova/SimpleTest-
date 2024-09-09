@@ -56,7 +56,7 @@ class TestController extends AbstractController
 					if ($answerType === 'wrong')
 					{
 						$failedQuestionIds[] = $question->getId();
-						continue;
+						continue 2;
 					}
 
 					$countCorrectAnswers++;
